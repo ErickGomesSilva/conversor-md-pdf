@@ -30,8 +30,6 @@ npm install
 npm start
 ```
 
-Acesse **http://localhost:3847** no navegador.
-
 ### Atalho no Windows
 
 O arquivo [`iniciar.bat`](iniciar.bat) instala as dependências (na primeira vez), sobe o servidor e abre o navegador automaticamente. Você pode criar um atalho dele na Área de Trabalho para abrir a ferramenta com um clique.
