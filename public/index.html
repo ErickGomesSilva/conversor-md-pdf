@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Conversor de Markdown para PDF</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,650&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js" defer></script>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <div class="app">
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">Uso local · sem envio para a nuvem</p>
+        <h1>Conversor de Markdown para PDF</h1>
+      </div>
+      <p class="lede">Arraste arquivos <strong>.md</strong>, confira a prévia e baixe PDFs prontos para impressão.</p>
+    </header>
+
+    <main class="layout">
+      <section class="panel panel-left" aria-label="Arquivos e opções">
+        <div id="dropzone" class="dropzone" tabindex="0" role="button" aria-label="Selecionar arquivos Markdown">
+          <input id="file-input" type="file" accept=".md,.markdown,.txt,text/markdown" multiple hidden>
+          <span class="dropzone-mark">MD</span>
+          <strong>Arraste arquivos .md aqui</strong>
+          <span>ou clique para selecionar · vários arquivos de uma vez</span>
+        </div>
+
+        <div class="files-head">
+          <h2>Fila</h2>
+          <span id="file-count">Nenhum arquivo</span>
+        </div>
+        <ul id="file-list" class="file-list"></ul>
+
+        <fieldset class="options">
+          <legend>PDF</legend>
+          <label>
+            Papel
+            <select id="opt-format">
+              <option value="A4" selected>A4</option>
+              <option value="Letter">Letter</option>
+            </select>
+          </label>
+          <label>
+            Margem
+            <select id="opt-margin">
+              <option value="compact">Compacta</option>
+              <option value="normal" selected>Normal</option>
+              <option value="wide">Ampla</option>
+            </select>
+          </label>
+          <label class="check">
+            <input id="opt-pages" type="checkbox" checked>
+            Numeração de páginas
+          </label>
+          <label class="check">
+            <input id="opt-toc" type="checkbox" checked>
+            Sumário com os títulos do documento
+          </label>
+          <label class="slider">
+            <span class="slider-label">
+              Tamanho da fonte
+              <span id="opt-font-scale-value">100%</span>
+            </span>
+            <input id="opt-font-scale" type="range" min="50" max="100" step="5" value="100">
+          </label>
+        </fieldset>
+
+        <fieldset class="options mode-options">
+          <legend>Vários arquivos</legend>
+          <label class="radio">
+            <input type="radio" name="output-mode" value="separate" checked>
+            Um PDF para cada arquivo
+          </label>
+          <label class="radio">
+            <input type="radio" name="output-mode" value="merged">
+            Um único PDF com todos
+          </label>
+          <label class="check merge-only">
+            <input id="opt-breaks" type="checkbox" checked>
+            Cada arquivo começa em uma nova página
+          </label>
+          <label class="check merge-only">
+            <input id="opt-titles" type="checkbox" checked>
+            Mostrar o nome de cada arquivo
+          </label>
+          <label class="merge-only output-name">
+            Nome do PDF unificado
+            <input id="opt-output-name" type="text" value="documentos" maxlength="80" autocomplete="off">
+          </label>
+        </fieldset>
+
+        <div class="actions">
+          <button id="btn-one" type="button" class="btn primary" disabled>Converter selecionado</button>
+          <button id="btn-all" type="button" class="btn ghost" disabled>Converter todos</button>
+        </div>
+        <p id="status" class="status" role="status"></p>
+      </section>
+
+      <section class="panel panel-preview" aria-label="Pré-visualização">
+        <div class="preview-bar">
+          <h2>Prévia</h2>
+          <span id="preview-name">Nenhum arquivo selecionado</span>
+        </div>
+        <article id="preview" class="preview markdown-body">
+          <p class="placeholder">O conteúdo do Markdown aparece aqui antes da conversão.</p>
+        </article>
+      </section>
+    </main>
+  </div>
+  <script src="/app.js" defer></script>
+</body>
+</html>
